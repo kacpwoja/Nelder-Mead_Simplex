@@ -3,17 +3,23 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib import cm
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from math import pi, e
 import nmsimplex as nm
 
 def rosenbrock(x, a=1, b=100):
     return (a-x[0])**2 + b*(x[1]-x[0]**2)**2
 
-# Definitions
-start = [-2, -1]
-end = [2, 3]
+def ackley(x):
+    a = -20*np.exp(-0.2*np.sqrt(0.5*(x[0]**2+x[1]**2)))
+    b = -np.exp(0.5*(np.cos(2*pi*x[0])+np.cos(2*pi*x[1])))
+    return  a + b + e + 20
 
-simplex_fun = rosenbrock
-max_iterations = 1000
+# Definitions
+start = [-4, -4]
+end = [4, 4]
+
+simplex_fun = ackley
+max_iterations = 10
 # -----------
 x = np.linspace(start[0], end[0])
 y = np.linspace(start[1], end[1])
@@ -36,7 +42,7 @@ plt.title("NM Simplex - Contour Plot")
 
 # Init
 # simplex = nm.init_simplex(2, start, end, simplex_fun)
-simplex = [[0, 1.5, -1], [2.5, -0.5, 0]]
+simplex = [[-3, 3, -1], [-3, 1, 3]]
 simplex = np.array(simplex)
 simplex = np.transpose(simplex)[simplex_fun(simplex).argsort()]
 simplex_T = np.transpose(simplex)
@@ -66,5 +72,5 @@ print(simplex[0])
 # plt.figure(1)
 # plt.legend()
 plt.figure(2)
-plt.legend()
+#plt.legend()
 plt.show()
