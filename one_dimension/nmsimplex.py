@@ -1,7 +1,7 @@
 import numpy as np
 
-def init_simplex(size, start, end, function):
-    simplex = np.linspace(start, end, size)
+def init_simplex(start, end, function):
+    simplex = np.linspace(start, end, 2)
     return simplex[function(simplex).argsort()]
 
 def nm_step(simplex, function, reflection = 1, expansion = 2, contraction = 0.5, shrinkage = 0.5):

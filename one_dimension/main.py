@@ -10,7 +10,6 @@ start = -3
 end = 2
 
 simplex_fun = fun
-simplex_size = 4
 max_iterations = 15
 # -----------
 
@@ -19,7 +18,7 @@ y = simplex_fun(x)
 
 plt.plot(x, y, label='function')
 
-simplex = nm.init_simplex(simplex_size, start, end, fun)
+simplex = nm.init_simplex(start, end, fun)
 plt.plot(simplex, simplex_fun(simplex), 'x', label='init simplex')
 
 i = 1
