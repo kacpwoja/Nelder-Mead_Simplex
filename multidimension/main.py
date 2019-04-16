@@ -6,6 +6,12 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from math import pi, e
 import nmsimplex as nm
 
+def rastrigin_n(x, a=10, dim=2):
+    f = 0
+    for i in range(dim):
+        f += x[i]**2 - a*np.cos(2*pi*x[i])
+    return a*dim + f
+
 def rastrigin(x, a=10):
     return a*2 + x[0]**2 + x[1]**2 - a*np.cos(2*pi*x[0]) - a*np.cos(2*pi*x[1])
 
@@ -21,7 +27,7 @@ def ackley(x):
 start = [-5.12, -5.12]
 end = [5.12, 5.12]
 
-simplex_fun = rastrigin
+simplex_fun = rastrigin_n
 max_iterations = 10
 # -----------
 x = np.linspace(start[0], end[0])
@@ -45,9 +51,12 @@ plt.title("NM Simplex - Contour Plot")
 
 # Init
 # simplex = nm.init_simplex(2, start, end, simplex_fun)
+# Manual
 simplex = [[-4, -4, 4], [-4, 4, 4]]
 simplex = np.array(simplex)
 simplex = np.transpose(simplex)[simplex_fun(simplex).argsort()]
+
+# Plot
 simplex_T = np.transpose(simplex)
 simplex_Tx = np.append(simplex_T[0], simplex_T[0][0])
 simplex_Ty = np.append(simplex_T[1], simplex_T[1][0])
